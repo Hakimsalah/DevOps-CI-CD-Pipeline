@@ -1,0 +1,161 @@
+
+/* Total Patient Box Container */
+.totalPatientBox {
+    width: 300px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(8px);
+    margin: 20px auto;
+}
+
+/* Hover Effect: Lift & Enhance Shadow */
+.totalPatientBox:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Header (Title & Logo) */
+.boxHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    
+}
+.boxHeader .patientLogo {
+    width: 50px;
+    margin-right: 10px;
+}
+.boxHeader span {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Content (Animated Bar Chart & Count) */
+.boxContent {
+    display: flex;
+    align-items: center;
+    align-self: center;
+ 
+}
+
+
+/* Animated Bar Chart */
+.barChart {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    width: 150px;
+    height: 100px; /* Container height for bars */
+}
+.bar {
+    background: var(--bar-color, #4a90e2); /* Dynamic color with fallback */
+    width: 10px;
+    height: 0; /* Start from zero height */
+    animation: grow 1s forwards;
+    border-radius: 5px;
+}
+@keyframes grow {
+    from { height: 0; }
+    to { height: var(--bar-height); }
+}
+
+/* Count styling */
+.boxContent span {
+    font-size: 24px;
+    font-family: Roboto;
+    font-weight: bold;
+    color: var(-- color);
+    align-self:flex-end;
+}
+
+/* styles.css */
+.patientCount {
+  color: var(--color, black); /* Use dynamic color, fallback to black */
+
+}
+
+
+
+
+.SurvivalBox {
+    width: 250px; /* Slightly wider for better visuals */
+    height: 200px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%); /* Gradient background */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 0 15px rgba(52, 152, 219, 0.2); /* Enhanced shadow with glow */
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease;
+    margin: 20px auto;
+    overflow: hidden;
+    border: 1px solid rgba(52, 152, 219, 0.3); /* Subtle border */
+  }
+  
+  /* Hover Effect: Lift, Enhance Shadow, and Change Gradient */
+  .SurvivalBox:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15), 0 0 20px rgba(52, 152, 219, 0.3);
+    background: linear-gradient(135deg, #e0eafc 0%, #ffffff 100%);
+  }
+  
+  .statBox {
+    font-size: 32px; /* Larger, more prominent */
+    font-weight: 700;
+    color: #3498db; /* Blue shade */
+    text-shadow: 1px 1px 3px rgba(52, 152, 219, 0.3); /* Subtle text glow */
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .descBox {
+    font-size: 16px;
+    color: #7f8c8d; /* Softer gray */
+    text-align: center;
+    margin-top: 10px;
+    padding: 0 10px;
+    animation: slideUp 1s ease-in-out;
+  }
+  
+  .dots {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+    background: #bdc3c7; /* Light gray */
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  
+  .dot.active {
+    background: #3498db; /* Blue for active dot */
+    transform: scale(1.2);
+  }
+  
+  .dot:hover {
+    transform: scale(1.3);
+    background: #2980b9; /* Darker blue on hover */
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }

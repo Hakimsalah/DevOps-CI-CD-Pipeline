@@ -1,0 +1,16 @@
+.detail{
+    flex: 1;
+    color: #fff;
+    position: relative;
+}
+.logout {
+    position: absolute;
+    bottom: 15px; /* Pour garder l'espace en bas */
+    left: 50%;
+    transform: translateX(-50%);
+}
+.detail img{
+    padding: 15px;
+    margin-top: 80px;
+    height: 70%;
+}

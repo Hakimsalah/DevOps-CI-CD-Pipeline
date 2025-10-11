@@ -1,0 +1,20 @@
+.Paragraphs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 80%;
+    background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+    border-radius: 10px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 0 20px rgba(54, 162, 235, 0.2);
+    padding: 20px;
+    margin: 80px 50px  ;
+    border: 1px solid rgba(54, 162, 235, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+
+.Paragraphs:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15), 0 0 25px rgba(54, 162, 235, 0.3);
+  }
+  

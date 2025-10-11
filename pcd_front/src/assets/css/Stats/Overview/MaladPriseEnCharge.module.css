@@ -1,0 +1,113 @@
+.container {
+    padding: 30px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f0 100%);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 20px auto;
+    width: 100%;
+  }
+  
+  .title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .chartContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+  
+  .chartSection {
+    flex: 1;
+    min-width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .chartSection:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .legendContainer {
+    padding: 15px;
+    border-radius: 8px;
+    background: #fafafa;
+    margin-bottom: 20px;
+  }
+  
+  .subTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 15px;
+  }
+  
+  .legendItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .acronym {
+    font-weight: 700;
+    color: #2980b9;
+    margin-right: 5px;
+    min-width: 40px;
+  }
+  
+  .fullName {
+    font-weight: 400;
+  }
+  
+  .chartWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 350px; /* Ensure there's enough height for the chart */
+  }
+  
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .chartContainer {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .chartSection {
+      width: 100%;
+      max-width: 400px;
+    }
+  
+    .title {
+      font-size: 24px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size: 20px;
+    }
+  
+    .legendItem {
+      font-size: 12px;
+    }
+  
+    .subTitle {
+      font-size: 18px;
+    }
+  }

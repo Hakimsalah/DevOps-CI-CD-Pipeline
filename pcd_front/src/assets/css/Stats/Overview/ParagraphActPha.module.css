@@ -1,0 +1,62 @@
+.ParagraphActPhaContainer {
+    font-family: 'Roboto', sans-serif;
+    width: 80%;
+    margin: 0 auto;
+    padding: 30px;
+    background: linear-gradient(135deg, #f9fbfc 0%, #eef2f5 100%);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+  }
+  
+  .ParagraphActPhaContainer:hover {
+    transform: translateY(-3px);
+  }
+  
+  .ParagraphActPhaTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  
+  .ParagraphActPhaText {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #34495e;
+    text-align: justify;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .ParagraphActPhaContainer {
+      width: 90%;
+      padding: 20px;
+    }
+  
+    .ParagraphActPhaTitle {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+  
+    .ParagraphActPhaText {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .ParagraphActPhaContainer {
+      width: 95%;
+      padding: 15px;
+    }
+  
+    .ParagraphActPhaTitle {
+      font-size: 18px;
+    }
+  
+    .ParagraphActPhaText {
+      font-size: 14px;
+    }
+  }

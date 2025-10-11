@@ -1,0 +1,130 @@
+/* Use the same font as the dashboard */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+.disease-overview-container {
+  padding: 40px;
+  background: white; /* Match dashboard background */
+  min-height: 100vh; /* Ensure it takes full height */
+  font-family: 'Inter', sans-serif;
+
+
+}
+
+.selectionBar-class {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Title styling to match dashboard */
+.section-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50; /* Same as dashboard title */
+  text-align: center;
+  margin-bottom: 10px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: #7f8c8d; /* Slightly lighter gray for contrast */
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.disease-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px; /* Match dashboard's rounded corners */
+  margin-bottom: 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Match dashboard shadow */
+  animation: slideUp 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.disease-section.left .disease-content {
+  flex-direction: row;
+}
+
+.disease-section.right .disease-content {
+  flex-direction: row-reverse;
+}
+
+.disease-content {
+  display: flex;
+  align-items: center;
+  max-width: 900px; /* Slightly narrower for balance */
+  gap: 40px;
+}
+
+.disease-image {
+  width: 400px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px; /* Slightly less rounded than containers */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.disease-section:hover .disease-image {
+  transform: scale(1.03);
+}
+
+.disease-info {
+  flex: 1;
+}
+
+.disease-name {
+  font-size: 26px;
+  font-weight: 500; /* Match dashboard's medium weight */
+  color: #2c3e50; /* Same as dashboard */
+  margin-bottom: 15px;
+}
+
+.disease-description {
+  font-size: 16px;
+  font-weight: 400;
+  color: #34495e; /* Match dashboard text color */
+  line-height: 1.8;
+}
+
+@media (max-width: 1024px) {
+  .disease-overview-container {
+    margin-left: 0; /* Remove offset when sidebar is not fixed */
+    padding: 20px;
+  }
+
+  .disease-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .disease-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .disease-section.left .disease-content,
+  .disease-section.right .disease-content {
+    flex-direction: column;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

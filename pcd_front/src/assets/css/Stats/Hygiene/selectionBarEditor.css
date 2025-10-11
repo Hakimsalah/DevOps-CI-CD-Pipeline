@@ -1,0 +1,86 @@
+.disinfectant-editor {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .editor-title {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2rem;         /* Larger title */
+    font-weight: 600;        /* Bold title */
+    letter-spacing: 1px;     /* Slight spacing for elegance */
+    padding-bottom: 10px;    /* Space below title */
+    border-bottom: 2px solid #4CAF50; /* Decorative underline */
+  }
+  
+  .input-section,
+  .delete-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    align-items: center;     /* Vertically align items */
+  }
+  
+  .input-field {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    flex: 1;
+    min-width: 150px;
+    height: 36px;           /* Fixed height for consistency */
+    box-sizing: border-box; /* Ensures padding doesn't affect height */
+    font-size: 14px;        /* Consistent text size */
+  }
+  
+  .action-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    height: 36px;           /* Matches input height */
+    box-sizing: border-box; /* Consistent sizing */
+  }
+  
+  .add-button {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .add-button:hover {
+    background-color: #45a049;
+  }
+  
+  .delete-button {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .delete-button:hover {
+    background-color: #da190b;
+  }
+  
+  .entries-list {
+    margin-top: 20px;
+  }
+  
+  .entry-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .entry-item:last-child {
+    border-bottom: none;
+  }
+  
+  .no-entries {
+    color: #666;
+    text-align: center;
+  }

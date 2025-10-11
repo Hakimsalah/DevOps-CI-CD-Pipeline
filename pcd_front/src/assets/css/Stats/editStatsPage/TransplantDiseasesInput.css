@@ -1,0 +1,99 @@
+.transplant-diseases-input {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .transplant-diseases-input h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #2c3e50;
+  }
+  
+  select,
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  select:focus,
+  input[type="text"]:focus,
+  input[type="number"]:focus {
+    border-color: #3498db;
+    outline: none;
+  }
+  
+  .my-button-transplantDiseaseInput {
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #3498db, #2ecc71);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 1rem;
+  }
+  
+  .my-button-transplantDiseaseInput:hover {
+    background: linear-gradient(135deg, #2ecc71, #3498db);
+  }
+  
+  .diseases-list {
+    margin-top: 1.5rem;
+  }
+  
+  .disease-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .disease-item span {
+    font-weight: 500;
+    color: #2c3e50;
+  }
+  
+  .disease-item button {
+    background: #e74c3c;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+  
+  .error {
+    color: #e74c3c;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .TransplantDiseasesInput p {
+    text-align: center;
+    font-weight: 500;
+    color: #2c3e50;
+    margin-top: 1rem;
+  }

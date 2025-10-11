@@ -1,0 +1,169 @@
+.chat{
+    flex: 2;
+    color: #fff;
+    border-right: 1px solid #dddddd35 ;
+    border-left: 1px solid #dddddd35 ;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+
+
+
+}
+.top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between ;
+    padding:20px;
+    border-bottom: 1px solid #dddddd35 ;
+    height: 75px;
+
+}
+.user{
+    display: flex;
+    align-items: center;
+    gap:20px;
+    
+
+
+
+}
+.user img{
+    width: 50px;
+    height:50px ;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.texts{
+    display: flex;
+    flex-direction:column;
+    gap: 5px;
+}
+.texts span{
+    font-size: 18px;
+    font-weight:bold;
+
+}
+.texts p{
+    color: #a5a5a5;
+    font-size: 14px;
+    font-weight:300;
+
+}
+.icons{
+    display: flex;
+    gap: 20px;
+
+
+}
+.icons img{
+    width: 20px;
+    height: 20px;
+}
+
+
+
+.bottom{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top:1px solid #dddddd35;
+    gap: 20px;
+    margin-top:auto ;
+}
+.bottom .icons {
+    display: flex;
+    gap: 20px;
+}
+.bottom .icons img{
+    width: 20px;
+    height: 20px;
+    cursor : pointer;
+
+}
+.bottom input {
+    flex:1;
+    background-color: rgba(17,25,40,0.5);
+    border: none;
+    outline: none ;
+    color: #fff;
+    padding: 20px;
+    border-radius:10px ;
+    font-size: 16px;
+
+}
+.bottom .sendButton{
+    background-color: #5183fe;
+    color: white;
+    padding: 10px 20px;
+    border:none;
+    border-radius:5px;
+    cursor: pointer;
+
+
+
+}
+.bottom .emoji{
+    position:relative;
+
+}
+.bottom .emoji .picker{
+    position:absolute;
+    bottom:50px;
+    left: 0;
+}
+.center{
+    padding: 20px;
+    flex: 1;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+
+}
+.center .message {
+    max-width: 70%;
+    display: flex;
+    gap: 20px;
+}
+.center .message.own{
+    align-self: flex-end;
+}
+.center .message.own .texts img{
+   width: 100%;
+   height:300px;
+   border-radius: 10px;
+   object-fit: cover;
+}
+
+.center .message.own .texts p{
+    background-color: #5183fe;
+}
+.center .message img{
+    height: 30px;
+    width: 30px;
+    border-radius:50% ;
+    object-fit: cover;
+    
+}
+.center .message .texts{
+    flex: 1 ;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.center .message .texts p{
+    padding: 20px;
+    background-color: rgba(17,25,40,0.3);
+    border-radius: 10px;
+    color: #fff;
+}
+.center .message  span{
+    font-size:10px ;
+}
+.center .message.own  span{
+    font-size:10px ;
+    display: block;
+}
