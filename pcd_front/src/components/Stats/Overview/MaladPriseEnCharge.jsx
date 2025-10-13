@@ -68,11 +68,11 @@ export const MaladiePriseEnCharge = () => {
             'Content-Type': 'application/json',
           },
         });
-  
+
         if (!response.ok) {
           throw new Error(response.statusText);
         }
-  
+
         const data = await response.json();
         console.log('Retrieved Data from API', data);
         setData1(data);
@@ -80,16 +80,25 @@ export const MaladiePriseEnCharge = () => {
         console.log('Error fetching data:', err.message);
       }
     };
-  
+
     getData1();
   }, []);
-  
 
-  // Generate random colors for the pie chart
-  const generateRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  // 🔐 Fonction sécurisée pour générer des couleurs aléatoires
+  const generateSecureRandomColor = () => {
+    const array = new Uint32Array(1);
+    window.crypto.getRandomValues(array);
+    const color = array[0].toString(16).slice(0, 6); // Prendre 6 caractères
+    return `#${color.padEnd(6, '0')}`; // Padding si nécessaire
+  };
 
-  const COLORS1 = data1.length ? Array.from({ length: data1.length }, () => generateRandomColor()) : [];
-  const COLORS2 = data1.length ? Array.from({ length: data1.length }, () => generateRandomColor()) : [];
+  const COLORS1 = data1.length
+    ? Array.from({ length: data1.length }, () => generateSecureRandomColor())
+    : [];
+
+  const COLORS2 = data1.length
+    ? Array.from({ length: data1.length }, () => generateSecureRandomColor())
+    : [];
 
   return (
     <div className={styles.container}>
