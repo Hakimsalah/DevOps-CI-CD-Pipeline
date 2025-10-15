@@ -1,0 +1,27 @@
+replicaCount: 1
+
+image:
+  repository: hakim2002/backend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+resources: {}
+
+namespace: backend
+
+env:
+  DB_HOST: "postgres-db-postgresql.backendnp.svc.cluster.local"
+  DB_PORT: "5432"
+  DB_NAME: "centregreffeDB"
+  DB_USER: "postgres"
+  DB_PASSWORD_SECRET_NAME: postgres-db-postgresql
+  DB_PASSWORD_SECRET_KEY: postgres-password
+
+frontend:
+  url: "http://localhost:3000"  
+
+
