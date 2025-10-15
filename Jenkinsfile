@@ -66,5 +66,73 @@ pipeline {
                 }
             }
         }
+        stage('Build & Push Docker Images') {
+    parallel {
+        stage('Frontend Image') {
+            steps {
+                dir('pcd_front') {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                        sh '''
+                        docker build -t $DOCKERHUB_USERNAME/frontend:$IMAGE_TAG .
+                        echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+                        docker push $DOCKERHUB_USERNAME/frontend:$IMAGE_TAG
+                        '''
+                    }
+                }
+            }
+        }
+        stage('Backend Image') {
+            steps {
+                dir('pcd_back/backend') {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                        sh '''
+                        docker build -t $DOCKERHUB_USERNAME/backend:$IMAGE_TAG .
+                        echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+                        docker push $DOCKERHUB_USERNAME/backend:$IMAGE_TAG
+                        '''
+                    }
+                }
+            }
+        }
+        stage('AI Image') {
+            steps {
+                dir('ai') {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                        sh '''
+                        docker build -t $DOCKERHUB_USERNAME/ai:$IMAGE_TAG .
+                        echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+                        docker push $DOCKERHUB_USERNAME/ai:$IMAGE_TAG
+                        '''
+                    }
+                }
+            }
+        }
     }
+  }
+
+  stage('Trivy Scan Images') {
+    steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+            sh "trivy image --scanners vuln --timeout 30m --format table -o trivy-frontend-image-report.html $DOCKERHUB_USERNAME/frontend:$IMAGE_TAG"
+            sh "trivy image --scanners vuln --timeout 30m --format table -o trivy-backend-image-report.html $DOCKERHUB_USERNAME/backend:$IMAGE_TAG"
+            sh "trivy image --scanners vuln --timeout 30m  --format table -o trivy-ai-image-report.html $DOCKERHUB_USERNAME/ai:$IMAGE_TAG"
+        }
+    }
+  }
+  stage('Publish Reports') {
+    steps {
+        publishHTML([
+            reportDir: '.',
+            reportFiles: 'trivy-frontend-image-report.html,trivy-backend-image-report.html,trivy-ai-image-report.html',
+            reportName: 'Trivy Security Reports',
+            keepAll: true,
+            alwaysLinkToLastBuild: true,
+            allowMissing: true
+        ])
+    }
+}
+
+
+   
+   }
 }
