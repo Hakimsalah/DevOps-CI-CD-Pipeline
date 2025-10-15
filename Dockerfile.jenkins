@@ -1,0 +1,27 @@
+# Utiliser l'image officielle Jenkins LTS
+FROM jenkins/jenkins:lts
+
+# Passer en root pour installer Docker et Trivy
+USER root
+
+# Installer Docker client et git
+RUN apt-get update && apt-get install -y \
+    docker.io \
+    git \
+    curl \
+    unzip \
+    sudo \
+    && rm -rf /var/lib/apt/lists/*
+
+# Installer Trivy
+RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+
+# Ajouter Jenkins à docker group pour pouvoir utiliser Docker sans sudo
+RUN groupadd -g 999 docker || true
+RUN usermod -aG docker jenkins
+
+# Revenir à l'utilisateur Jenkins
+USER jenkins
+
+# Définir le répertoire de travail
+WORKDIR /var/jenkins_home
