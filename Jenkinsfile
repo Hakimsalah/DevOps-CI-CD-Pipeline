@@ -142,9 +142,9 @@ stage('Update Helm Chart Values & Push') {
                     )]) {
                         sh """
                         # Update image tags in Helm values
-                        sed -i "s/tag:.*/tag: $IMAGE_TAG/" manifests_K8S/frontend/values.yaml
-                        sed -i "s/tag:.*/tag: $IMAGE_TAG/" manifests_K8S/backend/values.yaml
-                        sed -i "s/tag:.*/tag: $IMAGE_TAG/" manifests_K8S/ai/values.yaml
+                        sed -i "s/tag:.*/tag: $IMAGE_TAG/" mychart/frontend/values.yaml
+                        sed -i "s/tag:.*/tag: $IMAGE_TAG/" mychart/backend/values.yaml
+                        sed -i "s/tag:.*/tag: $IMAGE_TAG/" mychart/ai/values.yaml
 
                         # Configure Git (use your GitHub email here, not the Jenkins var)
                         git config --global user.name "$GIT_USERNAME"
