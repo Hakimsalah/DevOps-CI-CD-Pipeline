@@ -2,10 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
+  namespace: backendnp
   labels:
     app: backend
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
       app: backend
@@ -16,23 +17,55 @@ spec:
     spec:
       containers:
         - name: backend
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: hakim2002/backend:15
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
           env:
             - name: DB_HOST
-              value: {{ .Values.env.DB_HOST | quote }}
+              value: "postgres.backendnp.svc.cluster.local"
             - name: DB_PORT
-              value: {{ .Values.env.DB_PORT | quote }}
+              value: "5432"
             - name: DB_NAME
-              value: {{ .Values.env.DB_NAME | quote }}
+              value: "centregreffeDB"
             - name: DB_USER
-              value: {{ .Values.env.DB_USER | quote }}
+              value: "postgres"
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.env.DB_PASSWORD_SECRET_NAME }}
-                  key: {{ .Values.env.DB_PASSWORD_SECRET_KEY }}
+                  name: postgres-db-postgresql
+                  key: postgres-password
             - name: FRONTEND_URL
-              value: "{{.Values.frontend.url}}"
+              value: "http://localhost:3000"
+          # ========================
+          # ✅ Probes pour santé du container
+          # ========================
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            failureThreshold: 5
+          # ========================
+          # ✅ Init container pour attendre la DB
+          # ========================
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - |
+                    until nc -z $DB_HOST $DB_PORT; do
+                      echo "Waiting for Postgres..."
+                      sleep 3
+                    done
+                    echo "Postgres is ready"

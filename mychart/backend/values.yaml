@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: hakim2002/backend
-  tag: latest
+  tag: 15
   pullPolicy: IfNotPresent
 
 service:
@@ -11,10 +11,10 @@ service:
 
 resources: {}
 
-namespace: backend
+namespace: backendnp
 
 env:
-  DB_HOST: "postgres-db-postgresql.backendnp.svc.cluster.local"
+  DB_HOST: "postgres.backendnp.svc.cluster.local"   # ✅ correspond au Service postgres dans ton chart postgres
   DB_PORT: "5432"
   DB_NAME: "centregreffeDB"
   DB_USER: "postgres"
@@ -24,4 +24,4 @@ env:
 frontend:
   url: "http://localhost:3000"  
 
-
+ 

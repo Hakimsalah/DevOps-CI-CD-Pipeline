@@ -1,0 +1,14 @@
+image:
+  repository: postgres
+  tag: "15"
+
+postgresUser: postgres
+postgresPassword: "123456"
+postgresDb: centregreffeDB
+
+service:
+  type: ClusterIP
+  port: 5432
+
+storage:
+  size: 1Gi

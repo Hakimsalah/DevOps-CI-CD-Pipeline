@@ -159,23 +159,6 @@ stage('Update Helm Chart Values & Push') {
                 }
             }
         }
-        stage('ArgoCD Sync') {
-            steps {
-                script {
-                    // Argo CD credentials
-                    withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
-                        sh """
-                        # Login to Argo CD CLI
-                        argocd login localhost:2020 --username admin --password $ARGOCD_PASSWORD --insecure
-
-                        # Sync all three applications
-                        argocd app sync frontend
-                        argocd app sync backend
-                        argocd app sync ai
-                        """
-                    }
-                }
-            }
-        }
+        
     }
 }
