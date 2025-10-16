@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: backendnp
+  namespace: myapp
   labels:
     app: backend
 spec:
@@ -17,13 +17,13 @@ spec:
     spec:
       containers:
         - name: backend
-          image: hakim2002/backend:15
-          imagePullPolicy: IfNotPresent
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           ports:
             - containerPort: 8080
           env:
             - name: DB_HOST
-              value: "postgres.backendnp.svc.cluster.local"
+              value: "postgres.myapp.svc.cluster.local"
             - name: DB_PORT
               value: "5432"
             - name: DB_NAME
