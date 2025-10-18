@@ -129,10 +129,10 @@ pipeline {
             alwaysLinkToLastBuild: true,
             allowMissing: true
         ])
-    }
-}
+     }
+  }
 
-stage('Update Helm Chart Values & Push') {
+    stage('Update Helm Chart Values & Push') {
             steps {
                 script {
                     withCredentials([usernamePassword(
@@ -154,6 +154,25 @@ stage('Update Helm Chart Values & Push') {
                         git add .
                         git commit -m "Update image tags to $IMAGE_TAG" || echo "No changes to commit"
                         git push https://Hakimsalah:${GIT_PASSWORD}@github.com/Hakimsalah/DevOps-CI-CD-Pipeline.git HEAD:main
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('ArgoCD Sync') {
+            steps {
+                script {
+                    // Argo CD credentials
+                    withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
+                        sh """
+                        # Login to Argo CD CLI
+                        argocd login localhost:2020 --username admin --password $ARGOCD_PASSWORD --insecure
+
+                        # Sync all three applications
+                        argocd app sync frontend
+                        argocd app sync backend
+                        argocd app sync ai
                         """
                     }
                 }
