@@ -160,24 +160,33 @@ pipeline {
             }
         }
 
+        stage('Install ArgoCD CLI') {
+              steps {
+                        sh '''
+                            # Télécharger et installer ArgoCD CLI
+                            curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+                            sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+                            rm argocd-linux-amd64
+                            '''
+                    }
+         }
+
         stage('ArgoCD Sync') {
             steps {
                 script {
-                    // Argo CD credentials
                     withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
                         sh """
-                        # Login to Argo CD CLI
-                        argocd login localhost:2020 --username admin --password $ARGOCD_PASSWORD --insecure
+                            # Login to Argo CD CLI
+                            argocd login localhost:2020 --username admin --password $ARGOCD_PASSWORD --insecure
 
-                        # Sync all three applications
-                        argocd app sync frontend
-                        argocd app sync backend
-                        argocd app sync ai
+                            # Sync all three applications
+                            argocd app sync frontend
+                            argocd app sync backend
+                            argocd app sync ai
                         """
                     }
                 }
             }
         }
-        
     }
 }
