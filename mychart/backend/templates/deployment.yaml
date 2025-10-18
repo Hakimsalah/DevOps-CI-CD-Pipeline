@@ -40,21 +40,4 @@ spec:
           # ========================
           # ✅ Probes pour santé du container
           # ========================
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 15
-            periodSeconds: 10
-            failureThreshold: 5
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 30
-            periodSeconds: 15
-            failureThreshold: 5
-          # ========================
-          # ✅ Init container pour attendre la DB
-          # ========================
           
