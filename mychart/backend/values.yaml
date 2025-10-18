@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: hakim2002/backend
-  tag: 17
+  tag: 19
   pullPolicy: Always
 
 service:
@@ -20,8 +20,7 @@ env:
   DB_USER: "postgres"
   DB_PASSWORD_SECRET_NAME: postgres-db-postgresql
   DB_PASSWORD_SECRET_KEY: postgres-password
+  FRONTEND_URL: "http://frontend.myapp.svc.cluster.local:3000"
 
-frontend:
-  url: "http://localhost:3000"  
 
  

@@ -36,7 +36,7 @@ spec:
                   name: postgres-db-postgresql
                   key: postgres-password
             - name: FRONTEND_URL
-              value: "http://localhost:3000"
+              value: {{ .Values.env.FRONTEND_URL | quote }}
           # ========================
           # ✅ Probes pour santé du container
           # ========================
@@ -57,15 +57,4 @@ spec:
           # ========================
           # ✅ Init container pour attendre la DB
           # ========================
-          lifecycle:
-            postStart:
-              exec:
-                command:
-                  - sh
-                  - -c
-                  - |
-                    until nc -z $DB_HOST $DB_PORT; do
-                      echo "Waiting for Postgres..."
-                      sleep 3
-                    done
-                    echo "Postgres is ready"
+          
