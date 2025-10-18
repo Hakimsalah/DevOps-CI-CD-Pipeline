@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: hakim2002/ai
-  tag: 19
+  tag: 24
   pullPolicy: IfNotPresent
 
 service:
