@@ -27,9 +27,9 @@ public class UserService {
     private final EmailService emailService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JwtUtil jwtUtil;
-    @Value("${frontend.url}")
+    
+    @Value("${FRONTEND_URL}")
     private String frontendUrl;
-
 
 
 
