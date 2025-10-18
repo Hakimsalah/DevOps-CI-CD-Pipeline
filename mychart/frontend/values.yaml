@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: hakim2002/frontend
-  tag: latest
+  tag: 26
   pullPolicy: IfNotPresent
 
 service:
