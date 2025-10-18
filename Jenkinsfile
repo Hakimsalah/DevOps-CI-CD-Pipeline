@@ -136,7 +136,7 @@ stage('Update Helm Chart Values & Push') {
             steps {
                 script {
                     withCredentials([usernamePassword(
-                        credentialsId: 'github-creds',  // Jenkins credential ID
+                        credentialsId: 'tokengithub',  // Jenkins credential ID
                         usernameVariable: 'GIT_USERNAME',
                         passwordVariable: 'GIT_PASSWORD'
                     )]) {
