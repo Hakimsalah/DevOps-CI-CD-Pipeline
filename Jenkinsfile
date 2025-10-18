@@ -153,7 +153,7 @@ stage('Update Helm Chart Values & Push') {
                         # Commit and push changes
                         git add .
                         git commit -m "Update image tags to $IMAGE_TAG" || echo "No changes to commit"
-                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@https://github.com/Hakimsalah/DevOps-CI-CD-Pipeline.git HEAD:main
+                        git push https://Hakimsalah:${GIT_PASSWORD}@github.com/Hakimsalah/DevOps-CI-CD-Pipeline.git HEAD:main
                         """
                     }
                 }
