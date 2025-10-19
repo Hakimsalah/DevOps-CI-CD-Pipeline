@@ -174,7 +174,7 @@ pipeline {
         stage('ArgoCD Sync') {
             steps {
                 script {
-                    wwithCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
+                    withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
                                 sh """
                                     export ARGOCD_PASSWORD=$ARGOCD_PASSWORD
                                     argocd login localhost:2020 --username admin --password \$ARGOCD_PASSWORD --insecure
