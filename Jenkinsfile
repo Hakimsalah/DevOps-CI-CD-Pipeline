@@ -175,13 +175,13 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
-                                sh """
-                                    export ARGOCD_PASSWORD=$ARGOCD_PASSWORD
-                                    argocd login localhost:2020 --username admin --password \$ARGOCD_PASSWORD --insecure
-                                    argocd app sync frontend
-                                    argocd app sync backend
-                                    argocd app sync ai
-                                """
+                                    sh '''
+                                        argocd login localhost:2020 --username admin --password $ARGOCD_PASSWORD --insecure
+                                        argocd app sync frontend
+                                        argocd app sync backend
+                                        argocd app sync ai
+                                       '''
+                                }
                             }
                         }
             }
