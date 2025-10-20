@@ -172,19 +172,29 @@ pipeline {
          }
 
         stage('ArgoCD Sync') {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
-                                    sh '''
-                                        argocd login argo-cd-argo-cd-server.argocd.svc.cluster.local:443 --username admin --password $ARGOCD_PASSWORD --insecure
-                                        argocd app sync frontend
-                                        argocd app sync backend
-                                        argocd app sync ai
-                                       '''
-                                }
-                            }
+    steps {
+        script {
+            withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
+                sh '''
+                    # Port-forward en arrière-plan
+                    kubectl port-forward svc/argo-cd-argo-cd-server -n argocd 2020:443 &
+                    PORT_FORWARD_PID=$!
+                    sleep 5  # attendre que le port-forward soit actif
+
+                    # Login ArgoCD et sync apps
+                    argocd login localhost:2020 --username admin --password $ARGOCD_PASSWORD --insecure
+                    argocd app sync frontend
+                    argocd app sync backend
+                    argocd app sync ai
+
+                    # Kill le port-forward une fois terminé
+                    kill $PORT_FORWARD_PID
+                '''
                         }
+                    }
+                }
             }
+
         
     }
 }
