@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: hakim2002/backend
-  tag: 32
+  tag: 33
   pullPolicy: Always
 
 service:
