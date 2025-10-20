@@ -159,16 +159,7 @@ pipeline {
                 }
             }
         }
-        stage('Install kubectl') {
-                    steps {
-                        sh '''
-                        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-                        chmod +x kubectl
-                        sudo mv kubectl /usr/local/bin/
-                        kubectl version --client
-                        '''
-                    }
-                }
+    
 
 
         stage('Install ArgoCD CLI') {
@@ -183,29 +174,23 @@ pipeline {
          }
 
         stage('ArgoCD Sync') {
-    steps {
-        script {
-            withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
-                sh '''
-                    # Port-forward en arrière-plan
-                    kubectl port-forward svc/argo-cd-argo-cd-server -n argocd 2020:443 &
-                    PORT_FORWARD_PID=$!
-                    sleep 5  # attendre que le port-forward soit actif
+            steps {
+                script {
+                    // Argo CD credentials
+                    withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
+                        sh """
+                        # Login to Argo CD CLI
+                        argocd login localhost:2020 --username admin --password $ARGOCD_PASSWORD --insecure
 
-                    # Login ArgoCD et sync apps
-                    argocd login localhost:2020 --username admin --password $ARGOCD_PASSWORD --insecure
-                    argocd app sync frontend
-                    argocd app sync backend
-                    argocd app sync ai
-
-                    # Kill le port-forward une fois terminé
-                    kill $PORT_FORWARD_PID
-                '''
-                        }
+                        # Sync all three applications
+                        argocd app sync frontend
+                        argocd app sync backend
+                        argocd app sync ai
+                        """
                     }
                 }
             }
-
+        }
         
     }
 }
