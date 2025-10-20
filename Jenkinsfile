@@ -172,19 +172,23 @@ pipeline {
          }
 
         stage('ArgoCD Sync') {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
-                                    sh '''
-                                        argocd login host.docker.internal:2020 --username admin --password $ARGOCD_PASSWORD --insecure
-                                        argocd app sync frontend
-                                        argocd app sync backend
-                                        argocd app sync ai
-                                       '''
-                                }
-                            }
-                        }
+    steps {
+        script {
+            withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
+                sh '''
+                    # Obtenir l'IP de l'hôte Docker
+                    HOST_IP=$(ip route | grep default | awk '{print $3}')
+                    echo "Tentative de connexion à ArgoCD sur: $HOST_IP:2020"
+                    
+                    argocd login $HOST_IP:2020 --username admin --password $ARGOCD_PASSWORD --insecure
+                    argocd app sync frontend
+                    argocd app sync backend
+                    argocd app sync ai
+                '''
             }
+        }
+    }
+}
         
     }
 }
