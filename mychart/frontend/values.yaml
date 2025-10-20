@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: hakim2002/frontend
-  tag: 37
+  tag: 38
   pullPolicy: Always   # Forcer le pull à chaque déploiement
 
 service:
