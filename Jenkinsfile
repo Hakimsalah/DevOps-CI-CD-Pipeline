@@ -176,7 +176,7 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
                                     sh '''
-                                        argocd login localhost:2020 --username admin --password $ARGOCD_PASSWORD --insecure
+                                        argocd login argo-cd-argo-cd-server.argocd.svc.cluster.local:443 --username admin --password $ARGOCD_PASSWORD --insecure
                                         argocd app sync frontend
                                         argocd app sync backend
                                         argocd app sync ai
