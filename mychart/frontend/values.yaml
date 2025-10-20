@@ -2,8 +2,8 @@ replicaCount: 1
 
 image:
   repository: hakim2002/frontend
-  tag: 32
-  pullPolicy: IfNotPresent
+  tag: latest      # Utiliser toujours la dernière image
+  pullPolicy: Always   # Forcer le pull à chaque déploiement
 
 service:
   type: LoadBalancer  
@@ -14,4 +14,4 @@ resources: {}
 namespace: frontend
 
 db:
-  host:
+  host: 
