@@ -120,13 +120,15 @@ pipeline {
             }
         }
 
-        stage('Publish Trivy Reports') {
+        stage('Publish Reports') {
             steps {
                 publishHTML([
                     reportDir: '.',
-                    reportFiles: 'trivy-source-report.html,trivy-frontend-image-report.html,trivy-backend-image-report.html,trivy-ai-image-report.html',
-                    reportName: 'Security Reports',
-                    keepAll: true
+                    reportFiles: 'trivy-frontend-image-report.html,trivy-backend-image-report.html,trivy-ai-image-report.html',
+                    reportName: 'Trivy Security Reports',
+                    keepAll: true,
+                    alwaysLinkToLastBuild: true,
+                    allowMissing: true
                 ])
             }
         }
