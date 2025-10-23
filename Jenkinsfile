@@ -64,9 +64,7 @@ pipeline {
 
         stage('Trivy Source Scan') {
             steps {
-                sh """
-                trivy fs --scanners vuln,secret --format table -o trivy-source-report.html .
-                """
+                sh "/snap/bin/trivy fs --scanners vuln,secret --format table -o trivy-source-report.html ."
             }
         }
 
