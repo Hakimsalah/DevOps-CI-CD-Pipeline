@@ -27,7 +27,6 @@ pipeline {
                                 $SCANNER_HOME/bin/sonar-scanner \
                                 -Dsonar.projectName=frontend \
                                 -Dsonar.projectKey=frontend \
-                                -Dsonar.login=sonartoken
                                 """
                             }
                         }
@@ -43,7 +42,6 @@ pipeline {
                                 -Dsonar.projectName=backend \
                                 -Dsonar.projectKey=backend \
                                 -Dsonar.java.binaries=target/classes \
-                                -Dsonar.login=sonartoken
                                 """
                             }
                         }
@@ -58,7 +56,6 @@ pipeline {
                                 $SCANNER_HOME/bin/sonar-scanner \
                                 -Dsonar.projectName=ai \
                                 -Dsonar.projectKey=ai \
-                                -Dsonar.login=sonartoken
                                 """
                             }
                         }
