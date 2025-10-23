@@ -2,11 +2,11 @@ replicaCount: 1
 
 image:
   repository: hakim2002/frontend
-  tag: 41
+  tag: latest
   pullPolicy: Always   # Forcer le pull à chaque déploiement
 
 service:
-  type: LoadBalancer  
+  type: ClusterIP  
   port: 80
 
 resources: {}

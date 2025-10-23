@@ -6,17 +6,12 @@ pipeline {
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
-    
-
-
     stages {
-
         stage('Clean Workspace') {
-            steps {
-                cleanWs()
-            }
+            steps { cleanWs() }
         }
-        stage('Git Checkout Code') {
+
+        stage('Checkout Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/Hakimsalah/DevOps-CI-CD-Pipeline.git'
             }
@@ -28,29 +23,33 @@ pipeline {
                     steps {
                         dir('pcd_front') {
                             withSonarQubeEnv('sonar-server') {
-                                sh """ 
+                                sh """
                                 $SCANNER_HOME/bin/sonar-scanner \
                                 -Dsonar.projectName=frontend \
-                                -Dsonar.projectKey=frontend
+                                -Dsonar.projectKey=frontend \
+                                -Dsonar.login=sonartoken
                                 """
                             }
                         }
                     }
                 }
+
                 stage('Backend') {
                     steps {
                         dir('pcd_back/backend') {
                             withSonarQubeEnv('sonar-server') {
                                 sh """
-                                ./mvnw clean compile sonar:sonar \
+                                ./mvnw clean package sonar:sonar \
                                 -Dsonar.projectName=backend \
                                 -Dsonar.projectKey=backend \
-                                -Dsonar.java.binaries=target/classes
+                                -Dsonar.java.binaries=target/classes \
+                                -Dsonar.login=sonartoken
                                 """
                             }
                         }
                     }
                 }
+
                 stage('AI Service') {
                     steps {
                         dir('ai') {
@@ -58,7 +57,8 @@ pipeline {
                                 sh """
                                 $SCANNER_HOME/bin/sonar-scanner \
                                 -Dsonar.projectName=ai \
-                                -Dsonar.projectKey=ai
+                                -Dsonar.projectKey=ai \
+                                -Dsonar.login=sonartoken
                                 """
                             }
                         }
@@ -66,125 +66,105 @@ pipeline {
                 }
             }
         }
-        stage('Build & Push Docker Images') {
-    parallel {
-        stage('Frontend Image') {
+
+        stage('Trivy Source Scan') {
             steps {
-                dir('pcd_front') {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-                        sh '''
-                        docker build -t $DOCKERHUB_USERNAME/frontend:$IMAGE_TAG .
-                        echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-                        docker push $DOCKERHUB_USERNAME/frontend:$IMAGE_TAG
-                        '''
-                    }
-                }
+                sh """
+                trivy fs --scanners vuln,secret --format table -o trivy-source-report.html .
+                """
             }
         }
-        stage('Backend Image') {
-            steps {
-                dir('pcd_back/backend') {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-                        sh '''
-                        docker build -t $DOCKERHUB_USERNAME/backend:$IMAGE_TAG .
-                        echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-                        docker push $DOCKERHUB_USERNAME/backend:$IMAGE_TAG
-                        '''
+
+        stage('Build Docker Images') {
+            parallel {
+                stage('Frontend Image') {
+                    steps {
+                        dir('pcd_front') {
+                            sh "docker build -t hakim2002/frontend:$IMAGE_TAG ."
+                        }
                     }
                 }
-            }
-        }
-        stage('AI Image') {
-            steps {
-                dir('ai') {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-                        sh '''
-                        docker build -t $DOCKERHUB_USERNAME/ai:$IMAGE_TAG .
-                        echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-                        docker push $DOCKERHUB_USERNAME/ai:$IMAGE_TAG
-                        '''
+                stage('Backend Image') {
+                    steps {
+                        dir('pcd_back/backend') {
+                            sh "docker build -t hakim2002/backend:$IMAGE_TAG ."
+                        }
                     }
                 }
-            }
-        }
-    }
-  }
-
-  stage('Trivy Scan Images') {
-    steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-            sh "trivy image --scanners vuln --timeout 30m --format table -o trivy-frontend-image-report.html $DOCKERHUB_USERNAME/frontend:$IMAGE_TAG"
-            sh "trivy image --scanners vuln --timeout 30m --format table -o trivy-backend-image-report.html $DOCKERHUB_USERNAME/backend:$IMAGE_TAG"
-            sh "trivy image --scanners vuln --timeout 30m  --format table -o trivy-ai-image-report.html $DOCKERHUB_USERNAME/ai:$IMAGE_TAG"
-        }
-    }
-  }
-  stage('Publish Reports') {
-    steps {
-        publishHTML([
-            reportDir: '.',
-            reportFiles: 'trivy-frontend-image-report.html,trivy-backend-image-report.html,trivy-ai-image-report.html',
-            reportName: 'Trivy Security Reports',
-            keepAll: true,
-            alwaysLinkToLastBuild: true,
-            allowMissing: true
-        ])
-     }
-  }
-
-    stage('Update Helm Chart Values & Push') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(
-                        credentialsId: 'tokengithub',  // Jenkins credential ID
-                        usernameVariable: 'GIT_USERNAME',
-                        passwordVariable: 'GIT_PASSWORD'
-                    )]) {
-                        sh """
-                        # Update image tags in Helm values
-                        sed -i "s/tag:.*/tag: $IMAGE_TAG/" mychart/frontend/values.yaml
-                        sed -i "s/tag:.*/tag: $IMAGE_TAG/" mychart/backend/values.yaml
-                        sed -i "s/tag:.*/tag: $IMAGE_TAG/" mychart/ai/values.yaml
-
-                        # Configure Git (use your GitHub email here, not the Jenkins var)
-                        git config --global user.name "$GIT_USERNAME"
-                        git config --global user.email "hakim.salah@ensi-uma.tn"
-
-                        # Commit and push changes
-                        git add .
-                        git commit -m "Update image tags to $IMAGE_TAG" || echo "No changes to commit"
-                        git push https://Hakimsalah:${GIT_PASSWORD}@github.com/Hakimsalah/DevOps-CI-CD-Pipeline.git HEAD:main
-                        """
+                stage('AI Image') {
+                    steps {
+                        dir('ai') {
+                            sh "docker build -t hakim2002/ai:$IMAGE_TAG ."
+                        }
                     }
                 }
             }
         }
 
-        stage('Install ArgoCD CLI') {
-              steps {
-                        sh '''
-                            # Télécharger et installer ArgoCD CLI
-                            curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-                            sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
-                            rm argocd-linux-amd64
-                            '''
-                    }
-         }
+        stage('Trivy Image Scan') {
+            steps {
+                sh """
+                trivy image --timeout 30m --format table -o trivy-frontend-image-report.html hakim2002/frontend:$IMAGE_TAG
+                trivy image --timeout 30m --format table -o trivy-backend-image-report.html hakim2002/backend:$IMAGE_TAG
+                trivy image --timeout 30m --format table -o trivy-ai-image-report.html hakim2002/ai:$IMAGE_TAG
+                """
+            }
+        }
+
+        stage('Push Docker Images') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh """
+                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    docker push hakim2002/frontend:$IMAGE_TAG
+                    docker push hakim2002/backend:$IMAGE_TAG
+                    docker push hakim2002/ai:$IMAGE_TAG
+                    """
+                }
+            }
+        }
+
+        stage('Publish Trivy Reports') {
+            steps {
+                publishHTML([
+                    reportDir: '.',
+                    reportFiles: 'trivy-source-report.html,trivy-frontend-image-report.html,trivy-backend-image-report.html,trivy-ai-image-report.html',
+                    reportName: 'Security Reports',
+                    keepAll: true
+                ])
+            }
+        }
+
+        stage('Update Helm Charts & Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'githubtoken', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+                    sh """
+                    sed -i "s/tag:.*/tag: $IMAGE_TAG/" mychart/frontend/values.yaml
+                    sed -i "s/tag:.*/tag: $IMAGE_TAG/" mychart/backend/values.yaml
+                    sed -i "s/tag:.*/tag: $IMAGE_TAG/" mychart/ai/values.yaml
+
+                    git config --global user.name "$GIT_USER"
+                    git config --global user.email "hakim.salah@ensi-uma.tn"
+
+                    git add .
+                    git commit -m "Update Helm image tags to $IMAGE_TAG" || echo "No changes"
+                    git push https://Hakimsalah:${GIT_PASS}@github.com/Hakimsalah/DevOps-CI-CD-Pipeline.git HEAD:main
+                    """
+                }
+            }
+        }
 
         stage('ArgoCD Sync') {
             steps {
-                script {
-                    withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGOCD_PASSWORD')]) {
-                                    sh '''
-                                        argocd login 192.168.49.2:32690 --username admin --password $ARGOCD_PASSWORD --insecure
-                                        argocd app sync frontend
-                                        argocd app sync backend
-                                        argocd app sync ai
-                                       '''
-                                }
-                            }
-                        }
+                withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGO_PASS')]) {
+                    sh """
+                    argocd login localhost:32690 --username admin --password $ARGO_PASS --insecure
+                    argocd app sync frontend
+                    argocd app sync backend
+                    argocd app sync ai
+                    """
+                }
             }
-        
+        }
     }
 }
