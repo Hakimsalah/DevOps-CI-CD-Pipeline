@@ -23,31 +23,29 @@ pipeline {
                     steps {
                         dir('pcd_front') {
                             withSonarQubeEnv('sonar-server') {
-                                sh """
+                                sh """ 
                                 $SCANNER_HOME/bin/sonar-scanner \
                                 -Dsonar.projectName=frontend \
-                                -Dsonar.projectKey=frontend \
+                                -Dsonar.projectKey=frontend
                                 """
                             }
                         }
                     }
                 }
-
                 stage('Backend') {
                     steps {
                         dir('pcd_back/backend') {
                             withSonarQubeEnv('sonar-server') {
                                 sh """
-                                ./mvnw clean package sonar:sonar \
+                                ./mvnw clean compile sonar:sonar \
                                 -Dsonar.projectName=backend \
                                 -Dsonar.projectKey=backend \
-                                -Dsonar.java.binaries=target/classes \
+                                -Dsonar.java.binaries=target/classes
                                 """
                             }
                         }
                     }
                 }
-
                 stage('AI Service') {
                     steps {
                         dir('ai') {
@@ -55,7 +53,7 @@ pipeline {
                                 sh """
                                 $SCANNER_HOME/bin/sonar-scanner \
                                 -Dsonar.projectName=ai \
-                                -Dsonar.projectKey=ai \
+                                -Dsonar.projectKey=ai
                                 """
                             }
                         }
