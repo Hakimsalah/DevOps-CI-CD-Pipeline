@@ -1,6 +1,6 @@
 projectKey=ai
-serverUrl=http://sonarqube:9000
+serverUrl=http://localhost:9000
 serverVersion=25.10.0.114319
-dashboardUrl=http://sonarqube:9000/dashboard?id=ai
-ceTaskId=f1844e58-7f84-4192-98b1-ecb313102292
-ceTaskUrl=http://sonarqube:9000/api/ce/task?id=f1844e58-7f84-4192-98b1-ecb313102292
+dashboardUrl=http://localhost:9000/dashboard?id=ai
+ceTaskId=fd6e4d89-b160-4ed7-ba8d-8dd995ef224a
+ceTaskUrl=http://localhost:9000/api/ce/task?id=fd6e4d89-b160-4ed7-ba8d-8dd995ef224a

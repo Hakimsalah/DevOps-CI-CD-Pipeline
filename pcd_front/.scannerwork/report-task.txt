@@ -1,6 +1,6 @@
 projectKey=frontend
-serverUrl=http://sonarqube:9000
+serverUrl=http://localhost:9000
 serverVersion=25.10.0.114319
-dashboardUrl=http://sonarqube:9000/dashboard?id=frontend
-ceTaskId=2475cd44-c747-47fc-ae17-a4bb65914386
-ceTaskUrl=http://sonarqube:9000/api/ce/task?id=2475cd44-c747-47fc-ae17-a4bb65914386
+dashboardUrl=http://localhost:9000/dashboard?id=frontend
+ceTaskId=ecc0659c-ceb5-48e1-a503-929de0c07dfa
+ceTaskUrl=http://localhost:9000/api/ce/task?id=ecc0659c-ceb5-48e1-a503-929de0c07dfa

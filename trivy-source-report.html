@@ -1,0 +1,241 @@
+
+Report Summary
+
+┌─────────────────────────────┬──────┬─────────────────┬─────────┐
+│           Target            │ Type │ Vulnerabilities │ Secrets │
+├─────────────────────────────┼──────┼─────────────────┼─────────┤
+│ ai/requirements.txt         │ pip  │        4        │    -    │
+├─────────────────────────────┼──────┼─────────────────┼─────────┤
+│ pcd_back/backend/pom.xml    │ pom  │       15        │    -    │
+├─────────────────────────────┼──────┼─────────────────┼─────────┤
+│ pcd_front/package-lock.json │ npm  │       35        │    -    │
+└─────────────────────────────┴──────┴─────────────────┴─────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+For OSS Maintainers: VEX Notice
+--------------------------------
+If you're an OSS maintainer and Trivy has detected vulnerabilities in your project that you believe are not actually exploitable, consider issuing a VEX (Vulnerability Exploitability eXchange) statement.
+VEX allows you to communicate the actual status of vulnerabilities in your project, improving security transparency and reducing false positives for your users.
+Learn more and start using VEX: https://trivy.dev/v0.67/docs/supply-chain/vex/repo#publishing-vex-documents
+
+To disable this notice, set the TRIVY_DISABLE_VEX_NOTICE environment variable.
+
+
+ai/requirements.txt (pip)
+=========================
+Total: 4 (UNKNOWN: 0, LOW: 0, MEDIUM: 4, HIGH: 0, CRITICAL: 0)
+
+┌────────────┬───────────────┬──────────┬──────────┬───────────────────┬───────────────┬──────────────────────────────────────────────────────────────┐
+│  Library   │ Vulnerability │ Severity │  Status  │ Installed Version │ Fixed Version │                            Title                             │
+├────────────┼───────────────┼──────────┼──────────┼───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ flask-cors │ CVE-2024-6839 │ MEDIUM   │ fixed    │ 5.0.1             │ 6.0.0         │ corydolphin/flask-cors version 4.0.1 contains an improper    │
+│            │               │          │          │                   │               │ regex path m ...                                             │
+│            │               │          │          │                   │               │ https://avd.aquasec.com/nvd/cve-2024-6839                    │
+│            ├───────────────┤          │          │                   │               ├──────────────────────────────────────────────────────────────┤
+│            │ CVE-2024-6844 │          │          │                   │               │ A vulnerability in corydolphin/flask-cors version 4.0.1      │
+│            │               │          │          │                   │               │ allows for inc ...                                           │
+│            │               │          │          │                   │               │ https://avd.aquasec.com/nvd/cve-2024-6844                    │
+│            ├───────────────┤          │          │                   │               ├──────────────────────────────────────────────────────────────┤
+│            │ CVE-2024-6866 │          │          │                   │               │ corydolphin/flask-cors version 4.01 contains a vulnerability │
+│            │               │          │          │                   │               │ where the ...                                                │
+│            │               │          │          │                   │               │ https://avd.aquasec.com/nvd/cve-2024-6866                    │
+├────────────┼───────────────┤          ├──────────┼───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ pip        │ CVE-2025-8869 │          │ affected │ 25.0.1            │               │ pip: pip missing checks on symbolic link extraction          │
+│            │               │          │          │                   │               │ https://avd.aquasec.com/nvd/cve-2025-8869                    │
+└────────────┴───────────────┴──────────┴──────────┴───────────────────┴───────────────┴──────────────────────────────────────────────────────────────┘
+
+pcd_back/backend/pom.xml (pom)
+==============================
+Total: 15 (UNKNOWN: 0, LOW: 3, MEDIUM: 5, HIGH: 6, CRITICAL: 1)
+
+┌───────────────────────────────────────────────────┬────────────────┬──────────┬────────┬───────────────────┬───────────────────────────┬──────────────────────────────────────────────────────────────┐
+│                      Library                      │ Vulnerability  │ Severity │ Status │ Installed Version │       Fixed Version       │                            Title                             │
+├───────────────────────────────────────────────────┼────────────────┼──────────┼────────┼───────────────────┼───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ ch.qos.logback:logback-core                       │ CVE-2025-11226 │ MEDIUM   │ fixed  │ 1.5.18            │ 1.5.19                    │ ch.qos.logback/logback-core: Conditional abitrary code       │
+│                                                   │                │          │        │                   │                           │ execution in logback-core                                    │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-11226                   │
+├───────────────────────────────────────────────────┼────────────────┼──────────┤        ├───────────────────┼───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ org.apache.tomcat.embed:tomcat-embed-core         │ CVE-2025-48988 │ HIGH     │        │ 10.1.39           │ 11.0.8, 10.1.42, 9.0.106  │ tomcat: Apache Tomcat DoS in multipart upload                │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-48988                   │
+│                                                   ├────────────────┤          │        │                   ├───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                                                   │ CVE-2025-48989 │          │        │                   │ 11.0.10, 10.1.44, 9.0.108 │ tomcat: http/2 "MadeYouReset" DoS attack through HTTP/2      │
+│                                                   │                │          │        │                   │                           │ control frames                                               │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-48989                   │
+│                                                   ├────────────────┼──────────┤        │                   ├───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                                                   │ CVE-2025-31650 │ MEDIUM   │        │                   │ 9.0.104, 10.1.40, 11.0.6  │ tomcat: Apache Tomcat: DoS via malformed HTTP/2              │
+│                                                   │                │          │        │                   │                           │ PRIORITY_UPDATE frame                                        │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-31650                   │
+│                                                   ├────────────────┤          │        │                   ├───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                                                   │ CVE-2025-49125 │          │        │                   │ 11.0.8, 10.1.42, 9.0.106  │ tomcat: Apache Tomcat: Security constraint bypass for        │
+│                                                   │                │          │        │                   │                           │ pre/post-resources                                           │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-49125                   │
+│                                                   ├────────────────┼──────────┤        │                   ├───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                                                   │ CVE-2025-31651 │ LOW      │        │                   │ 9.0.104, 10.1.40, 11.0.6  │ tomcat: Apache Tomcat: Bypass of rules in Rewrite Valve      │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-31651                   │
+│                                                   ├────────────────┤          │        │                   ├───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                                                   │ CVE-2025-46701 │          │        │                   │ 9.0.105, 10.1.41, 11.0.7  │ tomcat: Apache Tomcat: Security constraint bypass for CGI    │
+│                                                   │                │          │        │                   │                           │ scripts                                                      │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-46701                   │
+├───────────────────────────────────────────────────┼────────────────┼──────────┤        ├───────────────────┼───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ org.postgresql:postgresql                         │ CVE-2025-49146 │ HIGH     │        │ 42.7.5            │ 42.7.7                    │ pgjdbc: pgjdbc insecure authentication in channel binding    │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-49146                   │
+├───────────────────────────────────────────────────┼────────────────┤          │        ├───────────────────┼───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ org.springframework.boot:spring-boot              │ CVE-2025-22235 │          │        │ 3.4.4             │ 3.3.11, 3.4.5             │ org.springframework.boot/spring-boot: Spring Boot            │
+│                                                   │                │          │        │                   │                           │ EndpointRequest.to() creates wrong matcher if actuator       │
+│                                                   │                │          │        │                   │                           │ endpoint is not...                                           │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-22235                   │
+├───────────────────────────────────────────────────┼────────────────┼──────────┤        ├───────────────────┼───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ org.springframework.security:spring-security-core │ CVE-2025-41232 │ CRITICAL │        │ 6.4.4             │ 6.4.6                     │ Spring-Security: Spring Security authorization bypass for    │
+│                                                   │                │          │        │                   │                           │ method security annotations on private methods...            │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-41232                   │
+│                                                   ├────────────────┼──────────┤        │                   ├───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                                                   │ CVE-2025-41248 │ HIGH     │        │                   │ 6.4.10, 6.5.4             │ org.springframework.security/spring-security-core: Spring    │
+│                                                   │                │          │        │                   │                           │ Security authorization bypass                                │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-41248                   │
+├───────────────────────────────────────────────────┼────────────────┼──────────┤        ├───────────────────┼───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ org.springframework:spring-context                │ CVE-2025-22233 │ LOW      │        │ 6.2.5             │ 6.2.7, 6.1.20             │ CVE-2024-38820 ensured Locale-independent, lowercase         │
+│                                                   │                │          │        │                   │                           │ conversion for bo ...                                        │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-22233                   │
+├───────────────────────────────────────────────────┼────────────────┼──────────┤        │                   ├───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ org.springframework:spring-core                   │ CVE-2025-41249 │ HIGH     │        │                   │ 6.2.11                    │ org.springframework/spring-core: Spring Framework Annotation │
+│                                                   │                │          │        │                   │                           │ Detection Vulnerability                                      │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-41249                   │
+├───────────────────────────────────────────────────┼────────────────┼──────────┤        │                   ├───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ org.springframework:spring-web                    │ CVE-2025-41234 │ MEDIUM   │        │                   │ 6.2.8, 6.1.21             │ springframework: Reflected download attack in Spring         │
+│                                                   │                │          │        │                   │                           │ Framework with non-ASCII headers                             │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-41234                   │
+├───────────────────────────────────────────────────┼────────────────┤          │        │                   ├───────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ org.springframework:spring-webmvc                 │ CVE-2025-41242 │          │        │                   │ 6.2.10                    │ org.springframework/spring-webmvc: Spring Framework MVC path │
+│                                                   │                │          │        │                   │                           │ traversal vulnerability                                      │
+│                                                   │                │          │        │                   │                           │ https://avd.aquasec.com/nvd/cve-2025-41242                   │
+└───────────────────────────────────────────────────┴────────────────┴──────────┴────────┴───────────────────┴───────────────────────────┴──────────────────────────────────────────────────────────────┘
+
+pcd_front/package-lock.json (npm)
+=================================
+Total: 35 (UNKNOWN: 0, LOW: 4, MEDIUM: 11, HIGH: 16, CRITICAL: 4)
+
+┌───────────────────────┬────────────────┬──────────┬────────┬───────────────────┬─────────────────────────────┬──────────────────────────────────────────────────────────────┐
+│        Library        │ Vulnerability  │ Severity │ Status │ Installed Version │        Fixed Version        │                            Title                             │
+├───────────────────────┼────────────────┼──────────┼────────┼───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ @babel/helpers        │ CVE-2025-27789 │ MEDIUM   │ fixed  │ 7.26.9            │ 7.26.10, 8.0.0-alpha.17     │ Babel has inefficient RegExp complexity in generated code    │
+│                       │                │          │        │                   │                             │ with .replace when transpiling...                            │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2025-27789                   │
+├───────────────────────┤                │          │        │                   │                             │                                                              │
+│ @babel/runtime        │                │          │        │                   │                             │                                                              │
+│                       │                │          │        │                   │                             │                                                              │
+│                       │                │          │        │                   │                             │                                                              │
+├───────────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ axios                 │ CVE-2025-27152 │ HIGH     │        │ 0.24.0            │ 1.8.2, 0.30.0               │ axios: Possible SSRF and Credential Leakage via Absolute URL │
+│                       │                │          │        │                   │                             │ in axios Requests...                                         │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2025-27152                   │
+│                       ├────────────────┤          │        │                   ├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2025-58754 │          │        │                   │ 1.12.0, 0.30.2              │ axios: Axios DoS via lack of data size check                 │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2025-58754                   │
+│                       ├────────────────┼──────────┤        │                   ├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2023-45857 │ MEDIUM   │        │                   │ 1.6.0, 0.28.0               │ axios: exposure of confidential data stored in cookies       │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2023-45857                   │
+│                       ├────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2025-58754 │ HIGH     │        │ 1.8.4             │ 1.12.0, 0.30.2              │ axios: Axios DoS via lack of data size check                 │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2025-58754                   │
+├───────────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ brace-expansion       │ CVE-2025-5889  │ LOW      │        │ 1.1.11            │ 2.0.2, 1.1.12, 3.0.1, 4.0.1 │ brace-expansion: juliangruber brace-expansion index.js       │
+│                       │                │          │        │                   │                             │ expand redos                                                 │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2025-5889                    │
+│                       │                │          │        ├───────────────────┤                             │                                                              │
+│                       │                │          │        │ 2.0.1             │                             │                                                              │
+│                       │                │          │        │                   │                             │                                                              │
+│                       │                │          │        │                   │                             │                                                              │
+├───────────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ extend                │ CVE-2018-16492 │ MEDIUM   │        │ 1.2.1             │ 3.0.2, 2.0.2                │ nodejs-extend: Prototype pollution can allow attackers to    │
+│                       │                │          │        │                   │                             │ modify object properties                                     │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2018-16492                   │
+├───────────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ form-data             │ CVE-2025-7783  │ CRITICAL │        │ 3.0.3             │ 2.5.4, 3.0.4, 4.0.4         │ form-data: Unsafe random function in form-data               │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2025-7783                    │
+│                       │                │          │        ├───────────────────┤                             │                                                              │
+│                       │                │          │        │ 4.0.2             │                             │                                                              │
+│                       │                │          │        │                   │                             │                                                              │
+├───────────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ http-proxy-middleware │ CVE-2025-32996 │ MEDIUM   │        │ 2.0.7             │ 2.0.8, 3.0.4                │ http-proxy-middleware: Always-Incorrect Control Flow         │
+│                       │                │          │        │                   │                             │ Implementation in http-proxy-middleware                      │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2025-32996                   │
+│                       ├────────────────┤          │        │                   ├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2025-32997 │          │        │                   │ 2.0.9, 3.0.5                │ http-proxy-middleware: Improper Check for Unusual or         │
+│                       │                │          │        │                   │                             │ Exceptional Conditions in http-proxy-middleware              │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2025-32997                   │
+├───────────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ lodash                │ CVE-2019-10744 │ CRITICAL │        │ 2.4.2             │ 4.17.12                     │ nodejs-lodash: prototype pollution in defaultsDeep function  │
+│                       │                │          │        │                   │                             │ leading to modifying properties                              │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2019-10744                   │
+│                       ├────────────────┼──────────┤        │                   ├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2018-16487 │ HIGH     │        │                   │ >=4.17.11                   │ lodash: Prototype pollution in utilities function            │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2018-16487                   │
+│                       ├────────────────┤          │        │                   ├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2021-23337 │          │        │                   │ 4.17.21                     │ nodejs-lodash: command injection via template                │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2021-23337                   │
+│                       ├────────────────┼──────────┤        │                   ├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2018-3721  │ LOW      │        │                   │ >=4.17.5                    │ lodash: Prototype pollution in utilities function            │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2018-3721                    │
+├───────────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ minimatch             │ CVE-2016-10540 │ HIGH     │        │ 0.2.14            │ 3.0.2                       │ Minimatch is a minimal matching utility that works by        │
+│                       │                │          │        │                   │                             │ converting glob ...                                          │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2016-10540                   │
+│                       ├────────────────┤          │        │                   ├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2022-3517  │          │        │                   │ 3.0.5                       │ nodejs-minimatch: ReDoS via the braceExpand function         │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2022-3517                    │
+│                       ├────────────────┤          │        │                   ├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ NSWG-ECO-118   │          │        │                   │ >=3.0.2                     │ Regular Expression Denial of Service                         │
+│                       ├────────────────┤          │        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2016-10540 │          │        │ 0.3.0             │ 3.0.2                       │ Minimatch is a minimal matching utility that works by        │
+│                       │                │          │        │                   │                             │ converting glob ...                                          │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2016-10540                   │
+│                       ├────────────────┤          │        │                   ├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2022-3517  │          │        │                   │ 3.0.5                       │ nodejs-minimatch: ReDoS via the braceExpand function         │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2022-3517                    │
+│                       ├────────────────┤          │        │                   ├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ NSWG-ECO-118   │          │        │                   │ >=3.0.2                     │ Regular Expression Denial of Service                         │
+├───────────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ minimist              │ CVE-2021-44906 │ CRITICAL │        │ 0.0.8             │ 1.2.6, 0.2.4                │ minimist: prototype pollution                                │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2021-44906                   │
+│                       ├────────────────┼──────────┤        │                   ├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2020-7598  │ MEDIUM   │        │                   │ 0.2.1, 1.2.3                │ nodejs-minimist: prototype pollution allows adding or        │
+│                       │                │          │        │                   │                             │ modifying properties of Object.prototype using a...          │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2020-7598                    │
+├───────────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ nth-check             │ CVE-2021-3803  │ HIGH     │        │ 1.0.2             │ 2.0.1                       │ nodejs-nth-check: inefficient regular expression complexity  │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2021-3803                    │
+├───────────────────────┼────────────────┤          │        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ object-path           │ CVE-2020-15256 │          │        │ 0.1.3             │ 0.11.5                      │ object-path: Prototype pollution could result in DoS or RCE  │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2020-15256                   │
+│                       ├────────────────┤          │        │                   ├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2021-3805  │          │        │                   │ 0.11.8                      │ nodejs-object-path: prototype pollution vulnerability        │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2021-3805                    │
+│                       ├────────────────┼──────────┤        │                   ├─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2021-23434 │ MEDIUM   │        │                   │ 0.11.6                      │ object-path: Type confusion vulnerability can lead to a      │
+│                       │                │          │        │                   │                             │ bypass of CVE-2020-15256                                     │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2021-23434                   │
+├───────────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ on-headers            │ CVE-2025-7339  │ LOW      │        │ 1.0.2             │ 1.1.0                       │ on-headers: on-headers vulnerable to http response header    │
+│                       │                │          │        │                   │                             │ manipulation                                                 │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2025-7339                    │
+├───────────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ postcss               │ CVE-2023-44270 │ MEDIUM   │        │ 7.0.39            │ 8.4.31                      │ PostCSS: Improper input validation in PostCSS                │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2023-44270                   │
+├───────────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ react-router          │ CVE-2025-43864 │ HIGH     │        │ 7.4.0             │ 7.5.2                       │ react-router: React Router allows a DoS via cache poisoning  │
+│                       │                │          │        │                   │                             │ by forcing SPA...                                            │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2025-43864                   │
+│                       ├────────────────┤          │        │                   │                             ├──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2025-43865 │          │        │                   │                             │ react-router: React Router allows pre-render data spoofing   │
+│                       │                │          │        │                   │                             │ on React-Router framework mode                               │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2025-43865                   │
+├───────────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ webpack-dev-server    │ CVE-2025-30359 │ MEDIUM   │        │ 4.15.2            │ 5.2.1                       │ webpack-dev-server: webpack-dev-server information exposure  │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2025-30359                   │
+│                       ├────────────────┤          │        │                   │                             ├──────────────────────────────────────────────────────────────┤
+│                       │ CVE-2025-30360 │          │        │                   │                             │ webpack-dev-server: webpack-dev-server information exposure  │
+│                       │                │          │        │                   │                             │ https://avd.aquasec.com/nvd/cve-2025-30360                   │
+└───────────────────────┴────────────────┴──────────┴────────┴───────────────────┴─────────────────────────────┴──────────────────────────────────────────────────────────────┘
