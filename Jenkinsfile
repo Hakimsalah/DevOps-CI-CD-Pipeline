@@ -144,9 +144,6 @@ pipeline {
                     git config --global user.name "$GIT_USER"
                     git config --global user.email "hakim.salah@ensi-uma.tn"
 
-                    git add .
-                    git commit -m "Update Helm image tags to $IMAGE_TAG" || echo "No changes"
-                    git push https://Hakimsalah:${GIT_PASS}@github.com/Hakimsalah/DevOps-CI-CD-Pipeline.git HEAD:main
                     """
                 }
             }

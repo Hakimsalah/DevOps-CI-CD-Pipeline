@@ -2,8 +2,8 @@ replicaCount: 1
 
 image:
   repository: hakim2002/backend
-  tag: 12
-  pullPolicy: Always
+  tag: 41
+  pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
