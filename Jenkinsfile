@@ -151,7 +151,7 @@ pipeline {
 
         stage('ArgoCD Sync') {
             steps {
-                withCredentials([string(credentialsId: 'argocd-password', variable: 'ARGO_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'argocd-password', variable: 'ARGO_PASS')]) {
                     sh """
                     argocd login localhost:32690 --username admin --password $ARGO_PASS --insecure
                     argocd app sync frontend
